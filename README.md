@@ -20,7 +20,7 @@ You may find an online demo implementation (with Vue + Vuetify + Typescript) of 
 The code of this demo is available on [usdz-viewer.net's GitHub]()
 
 
-## Installation
+## How to use
 
 a. Install three-usdz-loader with npm
 
@@ -58,7 +58,7 @@ const loadedModel = await loader.loadFile(file, group);
 loadedModel.clean()
 
 ```
-## License / How it works
+## License - What's behind
 
 This package is based on [Autodesk's USD fork](https://github.com/autodesk-forks/USD/tree/release) and aims to make Autodesk implementation easy to use from a NPM package.
 The implementation has been done by Autodesk using WebAssembly. Please consult their [GitHub](https://github.com/autodesk-forks/USD/tree/release) for any further information on the WebAssembly/Emscripten side of things.
