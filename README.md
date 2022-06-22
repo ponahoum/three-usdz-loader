@@ -1,5 +1,4 @@
-
-[![NPM Package][npm]][https://www.npmjs.com/package/three-usdz-loader]
+[![npm version](https://badge.fury.io/js/three-usdz-loader.svg)](https://badge.fury.io/js/three-usdz-loader)
 
 # Three USDZ Loader
 

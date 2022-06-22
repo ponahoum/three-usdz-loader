@@ -1,6 +1,6 @@
 {
   "name": "three-usdz-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A basic USDZ file (Pixar Universal Scene Description) loader for ThreeJS",
   "main": "lib/USDZLoader.js",
   "types": "lib/USDZLoader.d.ts",
@@ -36,5 +36,9 @@
     "@types/three": "^0.141.0",
     "perf_hooks": "^0.0.1",
     "three": "^0.141.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ponahoum/three-usdz-loader.git"
   }
 }
