@@ -1,7 +1,7 @@
 {
   "name": "three-usdz-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "A basic USDZ file (Pixar Universal Scene Description) loader for ThreeJS",
   "main": "lib/USDZLoader.js",
   "types": "lib/USDZLoader.d.ts",
   "scripts": {
@@ -12,11 +12,16 @@
   },
   "files": [
     "lib/**/*",
-    "external/**"
+    "external/**/*"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "usdz",
+    "threejs",
+    "loader",
+    "pixar"
+  ],
+  "author": "Pierre-Olivier",
+  "license": "Modified Apache 2.0",
   "devDependencies": {
     "@types/node": "^17.0.42",
     "@typescript-eslint/eslint-plugin": "^5.27.1",

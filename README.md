@@ -1,4 +1,6 @@
 
+[![NPM Package][npm]][https://www.npmjs.com/package/three-usdz-loader]
+
 # Three USDZ Loader
 
 A basic **USDZ** (binary Universal Scene Description) reader for [**Three.js**](https://threejs.org)
@@ -31,7 +33,22 @@ a. Install three-usdz-loader with npm
 b. The package uses **WebAssembly dependencies**. For those to work you have to **place those in your public folder**.
 Copy the content of **node_modules/three-gltf-loader/external** to **your /public folder**
 
-c. Use this example code to make it work in your ThreeJs context
+c. Make sure your web server has the proper headers to allow [SharedArrayBuffer](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer).
+To do so, you must add the following headers when serving your frontend application (the syntax may depend on which server you are using):
+```
+"headers": [
+          {
+            "key": "Cross-Origin-Embedder-Policy",
+            "value": "require-corp"
+          },
+          {
+            "key": "Cross-Origin-Opener-Policy",
+            "value": "same-origin"
+          }
+        ]
+```
+
+d. Use this example code to make it work in your ThreeJs context
 
 ```js
 import { USDZLoader } from "three-usdz-loader";
