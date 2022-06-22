@@ -1,6 +1,5 @@
-[![npm version](https://badge.fury.io/js/three-usdz-loader.svg)](https://badge.fury.io/js/three-usdz-loader)
-
 # Three USDZ Loader
+[![npm version](https://badge.fury.io/js/three-usdz-loader.svg)](https://badge.fury.io/js/three-usdz-loader)
 
 A basic **USDZ** (binary Universal Scene Description) reader for [**Three.js**](https://threejs.org)
 The plugins **supports animation** as well as loading multiple USDZ at the same time.
@@ -18,7 +17,7 @@ The plugins **supports animation** as well as loading multiple USDZ at the same 
 ## Demo
 
 You may find an online demo implementation (with Vue + Vuetify + Typescript) of this package on [usdz-viewer.net](https://www.usdz-viewer.net/)
-The code of this demo is available on [usdz-viewer.net's GitHub]()
+The code of this demo is available on [usdz-viewer.net's GitHub](https://github.com/ponahoum/usdz-web-viewer)
 
 
 ## How to use
