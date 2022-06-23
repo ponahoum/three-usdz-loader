@@ -8,7 +8,7 @@ The plugins **supports animation** as well as loading multiple USDZ at the same 
 
 ## Features
 
-- Loads .USDZ files in **ThreeJS** (100% frontend, not backend required)
+- Loads .USDZ files in **ThreeJS** (100% frontend, no backend required)
 - Typescript types for the loader
 - Loading multiple USDZ at the same time
 - Animations are supported
