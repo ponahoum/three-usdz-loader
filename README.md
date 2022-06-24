@@ -12,7 +12,11 @@ The plugins **supports animation** as well as loading multiple USDZ at the same 
 - Typescript types for the loader
 - Loading multiple USDZ at the same time
 - Animations are supported
-- Works on latests Chrome / Mozilla / Edge (might not work on Safari / iOS)
+- Works on latests browsers:
+  - Chrome
+  - Mozilla
+  - Edge
+  - Safari on Mac (might not work on iOS)
 
 
 ## Demo
@@ -75,8 +79,10 @@ const loadedModel = await loader.loadFile(file, group);
 loadedModel.clean()
 
 ```
-## License - What's behind
+## Limitations
+The loader currently only works on browsers supporting [SharedArrayBuffer](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) as well as [Atomics](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Atomics).
 
+## License - What's behind
 This package is based on [Autodesk's USD fork](https://github.com/autodesk-forks/USD/tree/release) and aims to make Autodesk implementation easy to use from a NPM package.
 The implementation has been done by Autodesk using WebAssembly. Please consult their [GitHub](https://github.com/autodesk-forks/USD/tree/release) for any further information on the WebAssembly/Emscripten side of things.
 
