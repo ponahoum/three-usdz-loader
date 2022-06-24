@@ -1,7 +1,7 @@
 var getUsdModule = (function () {
   var _scriptDir = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : undefined;
   if (typeof __filename !== 'undefined') _scriptDir = _scriptDir || __filename;
-  return function (getUsdModule, depPath) {
+  return function (getUsdModule, depPath, maxSupportedMemoryGrowth) {
     getUsdModule = getUsdModule || {};
 
     function GROWABLE_HEAP_I8() {
@@ -1738,7 +1738,7 @@ var getUsdModule = (function () {
       } else {
         wasmMemory = new WebAssembly.Memory({
           initial: INITIAL_MEMORY / 65536,
-          maximum: 4294967296 / 65536,
+          maximum: (maxSupportedMemoryGrowth === undefined ? 4294967296 : maxSupportedMemoryGrowth) / 65536,
           shared: true,
         });
         if (!(wasmMemory.buffer instanceof SharedArrayBuffer)) {

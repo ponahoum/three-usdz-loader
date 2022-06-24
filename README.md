@@ -16,7 +16,8 @@ The plugins **supports animation** as well as loading multiple USDZ at the same 
   - Chrome
   - Mozilla
   - Edge
-  - Safari on Mac (might not work on iOS)
+  - Safari on Mac (> 15.2)
+  - Safari on iOS (> 15.2, might not work on all models due to memory limitations)
 
 
 ## Demo
