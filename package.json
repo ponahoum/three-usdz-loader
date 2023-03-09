@@ -4,9 +4,10 @@
   "description": "A basic USDZ file (Pixar Universal Scene Description) loader for ThreeJS",
   "main": "lib/USDZLoader.js",
   "types": "lib/USDZLoader.d.ts",
+  "module": "lib/esm/USDZLoader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "tsc && tsc --module es6 --outDir ./lib/esm",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
   },
@@ -34,10 +35,10 @@
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.7.3",
-    "@types/three": "^0.141.0"
+    "@types/three": "^0.143.0"
   },
   "dependencies": {
-    "three": "^0.141.0"
+    "three": "^0.143.0"
   },
   "repository": {
     "type": "git",
