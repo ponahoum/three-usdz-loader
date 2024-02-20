@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 class TextureRegistry {
   constructor(basename) {
@@ -18,24 +18,24 @@ class TextureRegistry {
     });
 
     let resourcePath = filename;
-    if (filename[0] !== "/") {
-      resourcePath = this.basename + "[" + filename + "]";
+    if (filename[0] !== '/') {
+      resourcePath = this.basename + '[' + filename + ']';
     }
 
     let filetype = undefined;
-    if (filename.indexOf(".png") >= filename.length - 5) {
-      filetype = "image/png";
-    } else if (filename.indexOf(".jpg") >= filename.length - 5) {
-      filetype = "image/jpeg";
-    } else if (filename.indexOf(".jpeg") >= filename.length - 5) {
-      filetype = "image/jpeg";
+    if (filename.indexOf('.png') >= filename.length - 5) {
+      filetype = 'image/png';
+    } else if (filename.indexOf('.jpg') >= filename.length - 5) {
+      filetype = 'image/jpeg';
+    } else if (filename.indexOf('.jpeg') >= filename.length - 5) {
+      filetype = 'image/jpeg';
     } else {
-      throw new Error("Unknown filetype");
+      throw new Error('Unknown filetype');
     }
 
     window.driver.getFile(resourcePath, (loadedFile) => {
       if (!loadedFile) {
-        textureReject(new Error("Unknown file: " + resourcePath));
+        textureReject(new Error('Unknown file: ' + resourcePath));
         return;
       }
 
@@ -58,7 +58,7 @@ class TextureRegistry {
         // onError callback
         (err) => {
           textureReject(err);
-        }
+        },
       );
     });
 
@@ -98,10 +98,7 @@ class HydraMesh {
           values.push(attribute[dimension * index + j]);
         }
       }
-      this._geometry.setAttribute(
-        attributeName,
-        new THREE.Float32BufferAttribute(values, dimension)
-      );
+      this._geometry.setAttribute(attributeName, new THREE.Float32BufferAttribute(values, dimension));
     }
   }
 
@@ -111,13 +108,13 @@ class HydraMesh {
       this._indices.push(indices[i]);
     }
     //this._geometry.setIndex( indicesArray );
-    this.updateOrder(this._points, "position");
-    this.updateOrder(this._normals, "normal");
+    this.updateOrder(this._points, 'position');
+    this.updateOrder(this._normals, 'normal');
     if (this._colors) {
-      this.updateOrder(this._colors, "color");
+      this.updateOrder(this._colors, 'color');
     }
     if (this._uvs) {
-      this.updateOrder(this._uvs, "uv", 2);
+      this.updateOrder(this._uvs, 'uv', 2);
       this._geometry.attributes.uv2 = this._geometry.attributes.uv;
     }
   }
@@ -130,7 +127,7 @@ class HydraMesh {
 
   updateNormals(normals) {
     this._normals = normals.slice(0);
-    this.updateOrder(this._normals, "normal");
+    this.updateOrder(this._normals, 'normal');
   }
 
   // This is always called before prims are updated
@@ -150,9 +147,9 @@ class HydraMesh {
 
     this._colors = null;
 
-    if (interpolation === "constant") {
+    if (interpolation === 'constant') {
       this._mesh.material.color = new THREE.Color().fromArray(data);
-    } else if (interpolation === "vertex") {
+    } else if (interpolation === 'vertex') {
       // Per-vertex buffer attribute
       this._mesh.material.vertexColors = true;
       if (wasDefaultMaterial) {
@@ -160,7 +157,7 @@ class HydraMesh {
         this._mesh.material.color = new THREE.Color(0xffffff);
       }
       this._colors = data.slice(0);
-      this.updateOrder(this._colors, "color");
+      this.updateOrder(this._colors, 'color');
     } else {
       //console.warn(
       // `Unsupported displayColor interpolation type '${interpolation}'.`
@@ -172,22 +169,19 @@ class HydraMesh {
     // TODO: Support multiple UVs. For now, we simply set uv = uv2, which is required when a material has an aoMap.
     this._uvs = null;
 
-    if (interpolation === "facevarying") {
+    if (interpolation === 'facevarying') {
       // The UV buffer has already been prepared on the C++ side, so we just set it
-      this._geometry.setAttribute(
-        "uv",
-        new THREE.Float32BufferAttribute(data, dimension)
-      );
-    } else if (interpolation === "vertex") {
+      this._geometry.setAttribute('uv', new THREE.Float32BufferAttribute(data, dimension));
+    } else if (interpolation === 'vertex') {
       // We have per-vertex UVs, so we need to sort them accordingly
       this._uvs = data.slice(0);
-      this.updateOrder(this._uvs, "uv", 2);
+      this.updateOrder(this._uvs, 'uv', 2);
     }
     this._geometry.attributes.uv2 = this._geometry.attributes.uv;
   }
 
   updatePrimvar(name, data, dimension, interpolation) {
-    if (name === "points" || name === "normals") {
+    if (name === 'points' || name === 'normals') {
       // Points and normals are set separately
       return;
     }
@@ -195,15 +189,15 @@ class HydraMesh {
     //console.log("Setting PrimVar: " + name);
 
     // TODO: Support multiple UVs. For now, we simply set uv = uv2, which is required when a material has an aoMap.
-    if (name.startsWith("st")) {
-      name = "uv";
+    if (name.startsWith('st')) {
+      name = 'uv';
     }
 
     switch (name) {
-      case "displayColor":
+      case 'displayColor':
         this.setDisplayColor(data, interpolation);
         break;
-      case "uv":
+      case 'uv':
         this.setUV(data, dimension, interpolation);
         break;
       default:
@@ -213,7 +207,7 @@ class HydraMesh {
 
   updatePoints(points) {
     this._points = points.slice(0);
-    this.updateOrder(this._points, "position");
+    this.updateOrder(this._points, 'position');
   }
 
   commit() {
@@ -226,15 +220,15 @@ let defaultMaterial;
 class HydraMaterial {
   // Maps USD preview material texture names to Three.js MeshPhysicalMaterial names
   static usdPreviewToMeshPhysicalTextureMap = {
-    diffuseColor: "map",
-    clearcoat: "clearcoatMap",
-    clearcoatRoughness: "clearcoatRoughnessMap",
-    emissiveColor: "emissiveMap",
-    occlusion: "aoMap",
-    roughness: "roughnessMap",
-    metallic: "metalnessMap",
-    normal: "normalMap",
-    opacity: "alphaMap",
+    diffuseColor: 'map',
+    clearcoat: 'clearcoatMap',
+    clearcoatRoughness: 'clearcoatRoughnessMap',
+    emissiveColor: 'emissiveMap',
+    occlusion: 'aoMap',
+    roughness: 'roughnessMap',
+    metallic: 'metalnessMap',
+    normal: 'normalMap',
+    opacity: 'alphaMap',
   };
 
   static channelMap = {
@@ -249,14 +243,14 @@ class HydraMaterial {
 
   // Maps USD preview material property names to Three.js MeshPhysicalMaterial names
   static usdPreviewToMeshPhysicalMap = {
-    clearcoat: "clearcoat",
-    clearcoatRoughness: "clearcoatRoughness",
-    diffuseColor: "color",
-    emissiveColor: "emissive",
-    ior: "ior",
-    metallic: "metalness",
-    opacity: "opacity",
-    roughness: "roughness",
+    clearcoat: 'clearcoat',
+    clearcoatRoughness: 'clearcoatRoughness',
+    diffuseColor: 'color',
+    emissiveColor: 'emissive',
+    ior: 'ior',
+    metallic: 'metalness',
+    opacity: 'opacity',
+    roughness: 'roughness',
   };
 
   constructor(id, hydraInterface) {
@@ -279,8 +273,7 @@ class HydraMaterial {
   }
 
   assignTexture(mainMaterial, parameterName) {
-    const materialParameterMapName =
-      HydraMaterial.usdPreviewToMeshPhysicalTextureMap[parameterName];
+    const materialParameterMapName = HydraMaterial.usdPreviewToMeshPhysicalTextureMap[parameterName];
     if (materialParameterMapName === undefined) {
       //console.warn(
       //  `Unsupported material texture parameter '${parameterName}'.`
@@ -292,25 +285,20 @@ class HydraMaterial {
       const channel = mainMaterial[parameterName].inputName;
 
       // For debugging
-      const matName = Object.keys(this._nodes).find(
-        (key) => this._nodes[key] === mainMaterial
-      );
+      const matName = Object.keys(this._nodes).find((key) => this._nodes[key] === mainMaterial);
       //console.log(
       //  `Setting texture '${materialParameterMapName}' (${textureFileName}) of material '${matName}'...`
       //);
 
       this._interface.registry.getTexture(textureFileName).then((texture) => {
-        if (materialParameterMapName === "alphaMap") {
+        if (materialParameterMapName === 'alphaMap') {
           // If this is an opacity map, check if it's using the alpha channel of the diffuse map.
           // If so, simply change the format of that diffuse map to RGBA and make the material transparent.
           // If not, we need to copy the alpha channel into a new texture's green channel, because that's what Three.js
           // expects for alpha maps (not supported at the moment).
           // NOTE that this only works if diffuse maps are always set before opacity maps, so the order of
           // 'assingTexture' calls for a material matters.
-          if (
-            textureFileName === mainMaterial.diffuseColor?.nodeIn?.file &&
-            channel === "a"
-          ) {
+          if (textureFileName === mainMaterial.diffuseColor?.nodeIn?.file && channel === 'a') {
             this._material.map.format = THREE.RGBAFormat;
           } else {
             // TODO: Extract the alpha channel into a new RGB texture.
@@ -319,9 +307,9 @@ class HydraMaterial {
           this._material.transparent = true;
           this._material.needsUpdate = true;
           return;
-        } else if (materialParameterMapName === "metalnessMap") {
+        } else if (materialParameterMapName === 'metalnessMap') {
           this._material.metalness = 1.0;
-        } else if (materialParameterMapName === "emissiveMap") {
+        } else if (materialParameterMapName === 'emissiveMap') {
           this._material.emissive = new THREE.Color(0xffffff);
         } else if (!HydraMaterial.channelMap[channel]) {
           //console.warn(`Unsupported texture channel '${channel}'!`);
@@ -340,34 +328,25 @@ class HydraMaterial {
         this._material.needsUpdate = true;
       });
     } else {
-      this._material[materialParameterMapName] = undefined;
+      this._material[materialParameterMapName] = null;
     }
   }
 
   assignProperty(mainMaterial, parameterName) {
-    const materialParameterName =
-      HydraMaterial.usdPreviewToMeshPhysicalMap[parameterName];
+    const materialParameterName = HydraMaterial.usdPreviewToMeshPhysicalMap[parameterName];
     if (materialParameterName === undefined) {
       //console.warn(`Unsupported material parameter '${parameterName}'.`);
       return;
     }
-    if (
-      mainMaterial[parameterName] !== undefined &&
-      !mainMaterial[parameterName].nodeIn
-    ) {
+    if (mainMaterial[parameterName] !== undefined && !mainMaterial[parameterName].nodeIn) {
       //console.log(
       //  `Assigning property ${parameterName}: ${mainMaterial[parameterName]}`
       //);
       if (Array.isArray(mainMaterial[parameterName])) {
-        this._material[materialParameterName] = new THREE.Color().fromArray(
-          mainMaterial[parameterName]
-        );
+        this._material[materialParameterName] = new THREE.Color().fromArray(mainMaterial[parameterName]);
       } else {
         this._material[materialParameterName] = mainMaterial[parameterName];
-        if (
-          materialParameterName === "opacity" &&
-          mainMaterial[parameterName] < 1.0
-        ) {
+        if (materialParameterName === 'opacity' && mainMaterial[parameterName] < 1.0) {
           this._material.transparent = true;
         }
       }
@@ -445,7 +424,7 @@ export class RenderDelegateInterface {
   createSPrim(typeId, id) {
     //console.log("Creating SPrim: " + typeId + " " + id);
 
-    if (typeId === "material") {
+    if (typeId === 'material') {
       let material = new HydraMaterial(id, this);
       this.materials[id] = material;
       return material;
