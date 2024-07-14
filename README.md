@@ -80,6 +80,12 @@ const loadedModel = await loader.loadFile(file, group);
 loadedModel.clean()
 
 ```
+
+## Compatibility with ThreeJS version
+- v1.0.7 was developed and tested with ThreeJS v0.140
+- v1.0.8 was developed and tested with ThreeJS v0.166
+As ThreeJS evolves, the package could be malfuntionning. Don't hesitate to report any bug you encounter when using a different version of ThreeJS than the ones mentionned above.
+
 ## Limitations
 The loader currently only works on browsers supporting [SharedArrayBuffer](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) as well as [Atomics](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Atomics).
 
