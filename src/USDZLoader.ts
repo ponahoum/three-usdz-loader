@@ -2,6 +2,8 @@ import { RenderDelegateInterface } from './ThreeJsRenderDelegate';
 import { USDModule } from './USDModule';
 import { USDZInstance } from './USDZInstance';
 import { USDZLoaderUtils } from './Utils/utils';
+import * as THREE from 'three';
+
 export class USDZLoader {
   // The USD module from AutoDesk. Only one should be there at a the time.
   private usdModule: USDModule | null = null;

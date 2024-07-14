@@ -1,5 +1,6 @@
 import { RenderDelegateInterface } from './ThreeJsRenderDelegate';
 import { USDModule } from './USDModule';
+import * as THREE from 'three';
 
 /**
  * Represents a model loaded by the USDZLoader and handles its lifecycle in the THREE context

@@ -118,7 +118,7 @@ class HydraMesh {
     }
     if (this._uvs) {
       this.updateOrder(this._uvs, "uv", 2);
-      this._geometry.attributes.uv2 = this._geometry.attributes.uv;
+      this._geometry.attributes.uv1 = this._geometry.attributes.uv;
     }
   }
 
@@ -169,7 +169,7 @@ class HydraMesh {
   }
 
   setUV(data, dimension, interpolation) {
-    // TODO: Support multiple UVs. For now, we simply set uv = uv2, which is required when a material has an aoMap.
+    // TODO: Support multiple UVs. For now, we simply set uv = uv1, which is required when a material has an aoMap.
     this._uvs = null;
 
     if (interpolation === "facevarying") {
@@ -183,7 +183,7 @@ class HydraMesh {
       this._uvs = data.slice(0);
       this.updateOrder(this._uvs, "uv", 2);
     }
-    this._geometry.attributes.uv2 = this._geometry.attributes.uv;
+    this._geometry.attributes.uv1 = this._geometry.attributes.uv;
   }
 
   updatePrimvar(name, data, dimension, interpolation) {
@@ -194,7 +194,7 @@ class HydraMesh {
 
     //console.log("Setting PrimVar: " + name);
 
-    // TODO: Support multiple UVs. For now, we simply set uv = uv2, which is required when a material has an aoMap.
+    // TODO: Support multiple UVs. For now, we simply set uv = uv1, which is required when a material has an aoMap.
     if (name.startsWith("st")) {
       name = "uv";
     }
@@ -282,9 +282,9 @@ class HydraMaterial {
     const materialParameterMapName =
       HydraMaterial.usdPreviewToMeshPhysicalTextureMap[parameterName];
     if (materialParameterMapName === undefined) {
-      //console.warn(
-      //  `Unsupported material texture parameter '${parameterName}'.`
-      //);
+      console.warn(
+        `Unsupported material texture parameter '${parameterName}'.`
+      );
       return;
     }
     if (mainMaterial[parameterName] && mainMaterial[parameterName].nodeIn) {
@@ -332,15 +332,17 @@ class HydraMaterial {
         const clonedTexture = texture.clone();
         clonedTexture.format = HydraMaterial.channelMap[channel];
         clonedTexture.needsUpdate = true;
+
+        // Provide proper texture color space for regular maps. The rest can keep default.
+        if (parameterName === "diffuseColor" || parameterName === "emissiveColor") {
+          clonedTexture.colorSpace = THREE.SRGBColorSpace; 
+        }
+
         clonedTexture.wrapS = THREE.RepeatWrapping;
         clonedTexture.wrapT = THREE.RepeatWrapping;
-
         this._material[materialParameterMapName] = clonedTexture;
-
         this._material.needsUpdate = true;
       });
-    } else {
-      this._material[materialParameterMapName] = undefined;
     }
   }
 
