@@ -84,6 +84,7 @@ loadedModel.clean()
 ## Compatibility with ThreeJS version
 - v1.0.7 was developed and tested with ThreeJS v0.140
 - v1.0.8 was developed and tested with ThreeJS v0.166
+
 As ThreeJS evolves, the package could be malfuntionning. Don't hesitate to report any bug you encounter when using a different version of ThreeJS than the ones mentionned above.
 
 ## Limitations
