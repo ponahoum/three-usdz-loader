@@ -6,7 +6,8 @@
     "declaration": true,
     "outDir": "./lib",
     "allowJs": true,
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src/*"],
   "exclude": ["node_modules", "**/__tests__/*", "external"]
